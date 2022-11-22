@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from 'react'
+import GlobalFonts from './fonts/fonts'
+import Hero from './components/Hero';
+import Characters from './components/Characters';
 function App() {
+
+  const [isLoading, setIsloading] = React.useState(true)
+  const [charsArray, setCharsArray] = React.useState([])
+
+  async function loadChars() {
+
+    const response = await (await fetch('http://localhost:3333/chars')).json();
+    console.log(response)
+    setCharsArray(response);
+
+    setIsloading(false)
+  }
+
+  async function handleLance(idProduto, comprador, lance) {
+    const response = await (await fetch('http://localhost:3333/lance', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        idProduto,
+        comprador,
+        lance
+      })
+    })).json();
+    loadChars();
+    console.log(response)
+  }
+
+  React.useEffect(() => {
+    loadChars()
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalFonts />
+      <Hero />
+      {charsArray.map((char, index) => <Characters key={index} char={char} handleLance={handleLance} />)}
+    </>
   );
 }
 
