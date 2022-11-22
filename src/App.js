@@ -9,7 +9,7 @@ function App() {
 
   async function loadChars() {
 
-    const response = await (await fetch('http://localhost:3333/chars')).json();
+    const response = await (await fetch('https://yp8u4s-3333.preview.csb.app/chars')).json();
     console.log(response)
     setCharsArray(response);
 
@@ -17,7 +17,7 @@ function App() {
   }
 
   async function handleLance(idProduto, comprador, lance) {
-    const response = await (await fetch('http://localhost:3333/lance', {
+    const response = await (await fetch('https://yp8u4s-3333.preview.csb.app/lance', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

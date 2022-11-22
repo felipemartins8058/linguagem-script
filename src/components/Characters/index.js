@@ -7,6 +7,12 @@ export default function Characters({ key, char, handleLance }) {
     const [comprador, setComprador] = React.useState('')
 
     function handleLanceSubmit() {
+        console.log(`
+            lance -> ${lance}
+            char.lanceMaior.valorLance -> ${char.lanceMaior.valorLance}
+            char.lanceIncial -> ${char.lanceIncial}
+            
+        `)
         if (lance > char.lanceMaior.valorLance && lance > char.lanceIncial) {
             handleLance(char.id, comprador, lance)
             console.log('lance maior que o anterior')
